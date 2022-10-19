@@ -1,0 +1,21 @@
+{
+  "name": "playwright_e2e_api_calls",
+  "version": "1.0.0",
+  "description": "This is a collection of spikes with API libraries to determine the most viable",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Guzikowski/Playwright_E2E_API_Calls.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Guzikowski/Playwright_E2E_API_Calls/issues"
+  },
+  "homepage": "https://github.com/Guzikowski/Playwright_E2E_API_Calls#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.27.1"
+  }
+}
