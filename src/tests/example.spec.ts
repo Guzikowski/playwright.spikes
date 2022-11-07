@@ -1,6 +1,6 @@
 /* eslint-disable global-require */
 import { test } from '@playwright/test';
-import { BaseApi, BaseApiHelper } from './PostClient';
+import { BaseApi, BaseApiHelper } from '../PostClient';
 
 test.describe('Unit Tests for Playwright', () => {
   let baseApi: BaseApi;
