@@ -6,7 +6,7 @@ import path from 'path';
  * See https://playwright.dev/docs/test-configuration.
  */
 const config: PlaywrightTestConfig = {
-  testDir: path.join(__dirname, './src/Tests'),
+  testDir: path.join(__dirname, './src/tests'),
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
   expect: {
@@ -25,7 +25,7 @@ const config: PlaywrightTestConfig = {
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [['allure-playwright'], ['html'], ['list']],
+  reporter: process.env.CI ? [['allure-playwright'], ['list']] : [['allure-playwright'], ['html'], ['dot']],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
