@@ -71,3 +71,18 @@ jobs:
           PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PUBLISH_BRANCH: gh-pages
           PUBLISH_DIR: allure-history
+
+      - name: Post the link to the report
+        if: always()
+        uses: actions/checkout@v3
+        uses: actions/create-outputs@v0.0.0-fake
+        id: test-report-link
+        uses: LouisBrunner/checks-action@v1.1.1
+        with: 
+            token: ${{secrets.GITHUB_TOKEN}}
+            name: 'Allure Test Report'
+            conclusion: ${{ job.status }}
+            sha: ${{ github.event.pull_request.head.sha }}
+            details_url: simple-elf.github.io/github-allure-history/${{ github.run_number }}
+            output: |
+              {"summary": "Link to Allure Test Report"}
