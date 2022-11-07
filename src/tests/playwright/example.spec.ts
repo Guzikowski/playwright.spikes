@@ -15,7 +15,7 @@ test.describe('Unit Tests for Playwright', () => {
   });
 
   test('passing context api test', async () => {
-    const response = await baseApi.sessionGet('https://catfact.ninja/fact', {});
+    const response = await baseApi.sessionGet('https://catfact.ninja/fact');
     // eslint-disable-next-line no-console
     console.log(response.statusText());
   });
