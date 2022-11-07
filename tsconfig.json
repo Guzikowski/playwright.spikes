@@ -1,17 +1,17 @@
 {
-    "compilerOptions": {
-      "target": "es6",
-      "lib": ["dom", "dom.iterable", "esnext"],
-      "strict": true,
-      "declaration": true,
-      "module": "commonjs",
-      "noEmit": true,
-      "sourceMap": true,
-      "esModuleInterop": true,
-      "outDir": "public",
-      "rootDir": "src",
-      "watch": true
-    },
-    "include": ["src/**/*"],
-    //"exclude": ["node_modules", "recordings", "coverage", "**/*.spec.ts"]
-  }
+  "compilerOptions": {
+    "target": "es6",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "strict": true,
+    "declaration": true,
+    "module": "commonjs",
+    "noEmit": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "outDir": "public",
+    "rootDir": "src",
+    "watch": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}

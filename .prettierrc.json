@@ -1,0 +1,9 @@
+{
+    "printWidth": 120,
+    "indent": 2,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "none",
+    "bracketSpacing": true,
+    "bracketSameLine": true
+}

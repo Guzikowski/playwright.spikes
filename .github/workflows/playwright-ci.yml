@@ -9,7 +9,7 @@ jobs:
   verify-pull-request:
     timeout-minutes: 15
     runs-on: ubuntu-latest
-    environment: 'PTUS-QA127'
+    environment: 'DEV'
     steps:
       - uses: actions/checkout@v3
 
