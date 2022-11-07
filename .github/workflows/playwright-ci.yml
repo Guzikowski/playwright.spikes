@@ -74,9 +74,8 @@ jobs:
 
       - uses: actions/create-outputs@v0.0.0-fake
       
-      - uses: LouisBrunner/checks-action@v1.1.1
-      
       - name: Post the link to the report
+        uses: LouisBrunner/checks-action@v1.1.1
         if: always()
         id: test-report-link
         with: 
