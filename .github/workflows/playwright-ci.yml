@@ -46,7 +46,7 @@ jobs:
           retention-days: 20
 
       - name: Get Allure history
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         if: always()
         continue-on-error: true
         with:
@@ -73,6 +73,7 @@ jobs:
           PUBLISH_DIR: allure-history
 
       - name: Post the link to the report
+        uses: actions/checkout@v3
         if: always()
         uses: Sibz/github-status-action@v1
         with:
