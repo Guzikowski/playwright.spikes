@@ -74,10 +74,10 @@ jobs:
 
       - name: Post the link to the report
         if: always()
-        uses: actions/checkout@v3
-        uses: actions/create-outputs@v0.0.0-fake
+        - uses: actions/checkout@v3
+        - uses: actions/create-outputs@v0.0.0-fake
         id: test-report-link
-        uses: LouisBrunner/checks-action@v1.1.1
+        - uses: LouisBrunner/checks-action@v1.1.1
         with: 
             token: ${{secrets.GITHUB_TOKEN}}
             name: 'Allure Test Report'
