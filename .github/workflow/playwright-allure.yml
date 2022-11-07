@@ -1,0 +1,77 @@
+name: Playwright CI Workflow
+on:
+  workflow_dispatch:
+
+jobs:
+  verify-pull-request:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    environment: 'PTUS-QA127'
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Compile TypeScript
+        run: npm run build
+
+      - name: Run Linter
+        run: npm run lint
+
+      - name: Configure Environment
+        env:
+          CONFIG_ENV_NAME: 'PTUS-QA127'
+          AUTOMATION_CLIENT_SECRET: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
+          RIPLEY_CLIENT_SECRET: ${{ secrets.RIPLEY_CLIENT_SECRET }}
+          PICLIENT_CLIENT_SECRET: ${{ secrets.PICLIENT_CLIENT_SECRET }}
+          PROCUREMENT_CLIENT_SECRET: ${{ secrets.PROCUREMENT_CLIENT_SECRET }}
+          MITCHELL_CONNECT_CLIENT_SECRET: ${{ secrets.MITCHELL_CONNECT_CLIENT_SECRET }}
+          GLOBAL_PASSWORD: ${{ secrets.GLOBAL_PASSWORD }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+        run: |
+          touch .env
+          echo "CONFIG_ENV_NAME=${CONFIG_ENV_NAME} AUTOMATION_CLIENT_SECRET=${AUTOMATION_CLIENT_SECRET} RIPLEY_CLIENT_SECRET=${RIPLEY_CLIENT_SECRET} PICLIENT_CLIENT_SECRET=${PICLIENT_CLIENT_SECRET} PROCUREMENT_CLIENT_SECRET=${PROCUREMENT_CLIENT_SECRET} MITCHELL_CONNECT_CLIENT_SECRET=${MITCHELL_CONNECT_CLIENT_SECRET} GLOBAL_PASSWORD=${GLOBAL_PASSWORD} ADMIN_PASSWORD=${ADMIN_PASSWORD}" | tr " " "\n" >> .env
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright tests
+        run: npx playwright test
+
+      - uses: actions/upload-artifact@master
+        with:
+          name: allure-results
+          path: allure-results
+          retention-days: 20
+
+      - name: Get Allure history
+        uses: actions/checkout@v2
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Test marketplace action
+        uses: simple-elf/allure-report-action@master
+        if: always()
+        id: allure-report
+        with:
+          allure_results: allure-results
+          gh_pages: gh-pages
+          allure_report: allure-report
+          allure_history: allure-history
+          keep_reports: 20
+
+      - name: Deploy report to Github Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v2
+        env:
+          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUBLISH_BRANCH: gh-pages
+          PUBLISH_DIR: allure-history

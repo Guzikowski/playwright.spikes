@@ -1,4 +1,7 @@
+.env
 node_modules/
+/allure-report/
+/allure-results/
 /test-results/
 /playwright-report/
 /playwright/.cache/
