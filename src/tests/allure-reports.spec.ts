@@ -40,7 +40,7 @@ test.describe('Unit Tests for Allure Reports', () => {
 
   const TODO_ITEMS = ['buy some cheese', 'feed the cat', 'book a doctors appointment'];
 
-  test('Steps usage Attachments Usage basic test', async ({ page }, testInfo) => {
+  test('Attachments Usage basic test', async ({ page }, testInfo) => {
     await page.goto('https://demo.playwright.dev/todomvc');
     await testInfo.attach('TODO_ITEMS', {
       body: JSON.stringify(TODO_ITEMS),
