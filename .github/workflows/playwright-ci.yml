@@ -72,9 +72,7 @@ jobs:
           PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PUBLISH_BRANCH: gh-pages
           PUBLISH_DIR: allure-history
-
-      - uses: actions/create-outputs@v0.0.0-fake
-      
+    
       - name: Post the link to the report
         run: |
           url-link=simple-elf.github.io/github-allure-history/${{ github.run_number }}
