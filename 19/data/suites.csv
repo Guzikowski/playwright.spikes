@@ -1,0 +1,6 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Tue Nov 08 00:43:54 GMT 2022","Tue Nov 08 00:43:55 GMT 2022","1024","chromium","example.spec.ts","Unit Tests for Playwright","","","intercept me",""
+"passed","Tue Nov 08 00:43:54 GMT 2022","Tue Nov 08 00:43:54 GMT 2022","121","chromium","example.spec.ts","Unit Tests for Playwright","","","api test",""
+"failed","Tue Nov 08 00:44:03 GMT 2022","Tue Nov 08 00:44:05 GMT 2022","1797","chromium","screenshot.spec.ts","Screenshots","","","second screenshot",""
+"passed","Tue Nov 08 00:43:54 GMT 2022","Tue Nov 08 00:43:54 GMT 2022","45","chromium","example.spec.ts","Unit Tests for Playwright","","","passing context api test",""
+"failed","Tue Nov 08 00:43:58 GMT 2022","Tue Nov 08 00:43:58 GMT 2022","641","chromium","screenshot.spec.ts","Screenshots","","","My first screenshot",""
