@@ -48,7 +48,7 @@ test.describe('Unit Tests for Allure Reports', () => {
     });
   });
 
-  test('basic test', async ({ page }) => {
+  test('Steps usage basic test', async ({ page }) => {
     await test.step('Visit todolist page', async () => {
       await page.goto('https://demo.playwright.dev/todomvc');
     });
