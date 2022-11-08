@@ -74,11 +74,11 @@ jobs:
           PUBLISH_DIR: allure-history
     
       - name: Post the link to the report
+        id: report-link
         if: always()
         run: |
-          url-link='https://guzikowski.github.io/Playwright_E2E_API_Calls/${{ github.run_number }}'
-          echo '::set-output name=REPORT_LINK::$url-link'
-        id: report-link
+          url-link=https://guzikowski.github.io/Playwright_E2E_API_Calls/${{ github.run_number }}
+          echo "REPORT_LINK=$url-link" >> $GITHUB_OUTPUT
         
     outputs:
       test-report-link: ${{steps.report-link.outputs.REPORT_LINK}}
