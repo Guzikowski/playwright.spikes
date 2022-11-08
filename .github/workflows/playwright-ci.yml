@@ -10,6 +10,7 @@ jobs:
     timeout-minutes: 15
     runs-on: ubuntu-latest
     environment: 'DEV'
+
     steps:
       - uses: actions/checkout@v3
 
@@ -75,14 +76,17 @@ jobs:
       - uses: actions/create-outputs@v0.0.0-fake
       
       - name: Post the link to the report
-        uses: LouisBrunner/checks-action@v1.1.1
-        if: always()
-        id: test-report-link
-        with: 
-            token: ${{secrets.GITHUB_TOKEN}}
-            name: 'Allure Test Report'
-            conclusion: ${{ job.status }}
-            sha: ${{ github.event.pull_request.head.sha }}
-            details_url: simple-elf.github.io/github-allure-history/${{ github.run_number }}
-            output: |
-              {"summary": "Link to Allure Test Report"}
+        run: |
+          url-link=simple-elf.github.io/github-allure-history/${{ github.run_number }}
+          echo '::set-output name=REPORT_LINK::$url-link'
+        id: report-link
+        
+    outputs:
+      test-report-link: ${{steps.report-link.outputs.REPORT_LINK}}
+      
+  test-report:
+    runs-on: ubuntu-latest
+    needs: verify-pull-request
+    steps:
+      - run: echo "${{needs.jobs.outputs.test-report-link}}"
+        
