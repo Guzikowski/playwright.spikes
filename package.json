@@ -6,7 +6,7 @@
   "scripts": {
     "report": "npx playwright test --reporter=html && npx playwright show-report",
     "debug": "npx playwright test --debug",
-    "test": "npx playwright test || :",
+    "test": "npx playwright test",
     "codegen": "npx playwright codegen",
     "build": "tsc -b",
     "watch": "tsc -w",

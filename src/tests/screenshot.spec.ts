@@ -16,6 +16,6 @@ test.describe('Screenshots', () => {
     expect(await page.screenshot()).toMatchSnapshot('first-screenshot.png');
     await page.goto('https://playwright.dev/');
     expect(await page.screenshot()).toMatchSnapshot('second-screenshot.png');
-    expect(await page.screenshot()).toMatchSnapshot('first-screenshot.png');
+    expect(await page.screenshot()).not.toMatchSnapshot('first-screenshot.png');
   });
 });
