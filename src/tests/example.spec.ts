@@ -1,5 +1,5 @@
 /* eslint-disable global-require */
-import { test } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import { BaseApi, BaseApiHelper } from '../PostClient';
 
 test.describe('Unit Tests for Playwright', () => {
@@ -10,33 +10,26 @@ test.describe('Unit Tests for Playwright', () => {
 
   test('api test', async ({ request }) => {
     const response = await request.get('https://catfact.ninja/fact');
-    // eslint-disable-next-line no-console
-    console.log(response.statusText());
+    expect(response.statusText()).toBe('OK');
   });
 
   test('passing context api test', async () => {
     const response = await baseApi.sessionGet('https://catfact.ninja/fact');
-    // eslint-disable-next-line no-console
-    console.log(response.statusText());
+    expect(response.statusText()).toBe('OK');
   });
 
   test('intercept me', async ({ page }) => {
     await page.route('**/complete/search?*', async (route) => {
       const response = await page.request.fetch(route.request());
+      expect(response.statusText()).toBe('OK');
       const body = await response.text();
-      // eslint-disable-next-line no-console
-      console.log('got here');
+      expect(body).not.toBeNull();
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       const fs = require('fs');
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       fs.writeFile('./body.txt', body, (err: any) => {
-        if (err) {
-          // eslint-disable-next-line no-console
-          console.log(err);
-        }
+        expect(err).toBeNull();
       });
-      // eslint-disable-next-line no-console
-      console.log(body);
       route.fulfill();
     });
     await page.goto('https://www.google.com/');

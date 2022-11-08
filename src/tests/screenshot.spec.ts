@@ -1,6 +1,9 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Screenshots', () => {
+  if (process.env.CI) {
+    test.skip();
+  }
   /**
    * [Test 1](https://github.com/Guzikowski/Playwright_E2E_API_Calls/wiki/My-Tests#test-1)
    */
@@ -16,6 +19,6 @@ test.describe('Screenshots', () => {
     expect(await page.screenshot()).toMatchSnapshot('first-screenshot.png');
     await page.goto('https://playwright.dev/');
     expect(await page.screenshot()).toMatchSnapshot('second-screenshot.png');
-    expect(await page.screenshot()).toMatchSnapshot('first-screenshot.png');
+    expect(await page.screenshot()).not.toMatchSnapshot('first-screenshot.png');
   });
 });
