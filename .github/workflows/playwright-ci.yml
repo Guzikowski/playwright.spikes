@@ -77,8 +77,7 @@ jobs:
         id: report-link
         if: always()
         run: |
-          url-link=https://guzikowski.github.io/Playwright_E2E_API_Calls/${{ github.run_number }}
-          echo "REPORT_LINK=$url-link" >> $GITHUB_OUTPUT
+          echo "REPORT_LINK=https://guzikowski.github.io/Playwright_E2E_API_Calls/${{ github.run_number }}" >> $GITHUB_OUTPUT
         
     outputs:
       test-report-link: ${{steps.report-link.outputs.REPORT_LINK}}
