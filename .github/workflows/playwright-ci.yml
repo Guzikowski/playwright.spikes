@@ -76,7 +76,7 @@ jobs:
       - name: Post the link to the report
         if: always()
         run: |
-          url-link=simple-elf.github.io/github-allure-history/${{ github.run_number }}
+          url-link='https://guzikowski.github.io/Playwright_E2E_API_Calls/${{ github.run_number }}'
           echo '::set-output name=REPORT_LINK::$url-link'
         id: report-link
         
