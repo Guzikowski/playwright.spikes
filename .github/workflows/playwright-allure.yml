@@ -6,7 +6,7 @@ jobs:
   run-playwright-tests:
     timeout-minutes: 15
     runs-on: ubuntu-latest
-    environment: 'DEV'
+    environment: 'CI'
     steps:
       - uses: actions/checkout@v3
 
@@ -25,10 +25,11 @@ jobs:
 
       - name: Configure Environment
         env:
-          CONFIG_ENV_NAME: 'DEV'
+          CONFIG_ENV_NAME: 'CI',
+          SITE_PASSWORD: 'secret_sauce'
         run: |
           touch .env
-          echo "CONFIG_ENV_NAME=${CONFIG_ENV_NAME}" | tr " " "\n" >> .env
+          echo "CONFIG_ENV_NAME=${CONFIG_ENV_NAME} SITE_PASSWORD=${SITE_PASSWORD}" | tr " " "\n" >> .env
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
