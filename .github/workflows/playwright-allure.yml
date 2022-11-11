@@ -25,7 +25,7 @@ jobs:
 
       - name: Configure Environment
         env:
-          CONFIG_ENV_NAME: 'CI',
+          CONFIG_ENV_NAME: 'CI'
           SITE_PASSWORD: 'secret_sauce'
         run: |
           touch .env
