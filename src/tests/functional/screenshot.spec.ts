@@ -1,9 +1,6 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Tests for Visual Regression', () => {
-  if (process.env.CI) {
-    test.skip();
-  }
   /**
    * [Test 1](https://github.com/Guzikowski/Playwright_E2E_API_Calls/wiki/My-Tests#test-1)
    */
