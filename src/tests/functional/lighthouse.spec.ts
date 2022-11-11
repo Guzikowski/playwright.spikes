@@ -4,6 +4,7 @@ import playwright from 'playwright';
 
 test.describe('Sample audit example', () => {
   test('open browser', async () => {
+    test.slow();
     const browser = await playwright.chromium.launch({
       args: ['--remote-debugging-port=9222']
     });
