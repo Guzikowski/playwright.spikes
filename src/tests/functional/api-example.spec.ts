@@ -1,8 +1,8 @@
 /* eslint-disable global-require */
 import { expect, test } from '@playwright/test';
-import { BaseApi, BaseApiHelper } from '../PostClient';
+import { BaseApi, BaseApiHelper } from '../../classes/PostClient';
 
-test.describe('Unit Tests for Playwright', () => {
+test.describe('Unit Tests for Playwright API Testing', () => {
   let baseApi: BaseApi;
   test.beforeEach(({ request }) => {
     baseApi = new BaseApiHelper(request);
@@ -24,12 +24,6 @@ test.describe('Unit Tests for Playwright', () => {
       expect(response.statusText()).toBe('OK');
       const body = await response.text();
       expect(body).not.toBeNull();
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const fs = require('fs');
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      fs.writeFile('./body.txt', body, (err: any) => {
-        expect(err).toBeNull();
-      });
       route.fulfill();
     });
     await page.goto('https://www.google.com/');

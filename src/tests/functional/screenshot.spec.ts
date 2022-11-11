@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Screenshots', () => {
+test.describe('Tests for Visual Regression', () => {
   if (process.env.CI) {
     test.skip();
   }

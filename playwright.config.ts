@@ -1,12 +1,11 @@
 import type { PlaywrightTestConfig } from '@playwright/test';
 import { devices } from '@playwright/test';
-import path from 'path';
 
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 const config: PlaywrightTestConfig = {
-  testDir: path.join(__dirname, './src/tests'),
+  globalSetup: require.resolve('./src/environments/global-setup'),
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
   expect: {
@@ -27,24 +26,60 @@ const config: PlaywrightTestConfig = {
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: process.env.CI ? [['allure-playwright'], ['list']] : [['allure-playwright'], ['html'], ['dot']],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
-  use: {
-    /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
-    actionTimeout: 0,
-    /* Base URL to use in actions like `await page.goto('/')`. */
-    // baseURL: 'http://localhost:3000',
-
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry'
-  },
 
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
+      name: 'unit',
+      retries: 0,
+      testDir: './src/tests/unit',
       use: {
+        actionTimeout: 0,
+        trace: 'off'
+      }
+    },
+    {
+      name: 'functional',
+      retries: process.env.CI ? 1 : 0,
+      testDir: './src/tests/functional',
+      use: {
+        actionTimeout: 0,
         screenshot: 'only-on-failure',
         trace: 'on-first-retry',
         ...devices['Desktop Chrome']
+      }
+    },
+    {
+      name: 'e2e',
+      retries: process.env.CI ? 2 : 0,
+      testDir: './src/tests/e2e',
+      use: {
+        actionTimeout: 0,
+        screenshot: 'only-on-failure',
+        trace: 'on-first-retry',
+        ...devices['Desktop Chrome']
+      }
+    },
+    {
+      name: 'e2e firefox',
+      retries: process.env.CI ? 2 : 0,
+      testDir: './src/tests/e2e',
+      use: {
+        actionTimeout: 0,
+        screenshot: 'only-on-failure',
+        trace: 'on-first-retry',
+        ...devices['Desktop Firefox']
+      }
+    },
+    {
+      name: 'e2e webkit',
+      retries: process.env.CI ? 2 : 0,
+      testDir: './src/tests/e2e',
+      use: {
+        actionTimeout: 0,
+        screenshot: 'only-on-failure',
+        trace: 'on-first-retry',
+        ...devices['Desktop Safari']
       }
     }
   ],
