@@ -1,8 +1,6 @@
-# PTUS: End to End Regression Wiki
+# Swag - UI Regression Wiki
 
-<!-- TABLE OF CONTENTS -->
-
-- [PTUS: End to End Regression Wiki](#ptus-end-to-end-regression-wiki)
+- [Swag - UI Regression Wiki](#swag---ui-regression-wiki)
   - [About the Project](#about-the-project)
     - [Built With](#built-with)
   - [Getting Started](#getting-started)
@@ -12,18 +10,6 @@
   - [Usage](#usage)
   - [Reports](#reports)
   - [Wiki Sections](#wiki-sections)
-
-  - [About the Project](#about-the-project)
-    - [Built With](#built-with)
-  - [Getting Started](#getting-started)
-    - [Prerequisites](#prerequisites)
-    - [Useful Tools](#useful-tools)
-    - [Setup](#setup)
-  - [Usage](#usage)
-  - [Reports](#reports)
-  - [Wiki Sections](#wiki-sections)
-
-  <!-- ABOUT THE PROJECT -->
 
 ## About the Project
 
@@ -96,7 +82,7 @@ npx playwright install
 
 ### Setup
 
-> You will need to [create a .env file](./Tools/dotenv.md#configuration) to hold your initial settings when running locally. This file will NOT be commited to the repository it is in the .gitignore file. Once this is done you will be able to run your tests against this environment.
+> You will need to [create a .env file](./tools/dotenv.md#configuration) to hold your initial settings when running locally. This file will NOT be commited to the repository it is in the .gitignore file. Once this is done you will be able to run your tests against this environment.
 
 <!-- Usage -->
 
@@ -116,9 +102,9 @@ npx playwright install
 
 > The Wiki has been organised into the following sections:
 
-[Framework](Framework/README.md) |
-[Scenarios](Scenarios/README.md) |
-[Standards](Standards/README.md) |
-[Tools](Tools/README.md)
+[Framework](framework/README.md) |
+[Scenarios](scenarios/README.md) |
+[Standards](standards/README.md) |
+[Tools](tools/README.md)
 
-[Back to Top](#ptus-end-to-end-regression-wiki)
+[Back to Top](#swag---ui-regression-wiki)
