@@ -1,5 +1,6 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 import { allure } from 'allure-playwright';
+import { SecurityWorkflow } from '../../page-object-model/customer-user/workflows/security-workflows';
 
 test.describe.serial('Tests for Swag', () => {
   test('test logging in and out with standard user', async ({ page }) => {
@@ -14,17 +15,8 @@ test.describe.serial('Tests for Swag', () => {
     allure.epic('Swag e-Commerce Website');
     allure.story('Log in and Log out');
 
-    await page.goto(siteUrl);
-    await expect(page).toHaveTitle('Swag Labs');
-    await expect(page.locator('.login_logo')).toBeVisible();
-    await page.locator('[data-test="username"]').fill(process.env.SITE_STANDARD_USER as string);
-    await page.locator('[data-test="password"]').fill(process.env.SITE_PASSWORD as string);
-    await page.locator('[data-test="login-button"]').click();
-    await expect(page).toHaveURL(`${siteUrl}inventory.html`);
-
-    await page.getByRole('button', { name: 'Open Menu' }).click();
-    await page.getByRole('link', { name: 'Logout' }).click();
-    await expect(page).toHaveURL(siteUrl);
-    await expect(page.locator('.login_logo')).toBeVisible();
+    await SecurityWorkflow.login(page);
+    await SecurityWorkflow.logout(page);
+    await page.close();
   });
 });
