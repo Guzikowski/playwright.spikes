@@ -68,7 +68,7 @@ jobs:
         run: npx playwright install --with-deps chromium
       # Update the snapshots based on the current UI
       - name: Update snapshots
-        run: npx playwright test --update-snapshots --reporter=list
+        run: npx playwright test --update-snapshots --reporter=list --grep "@visual"
       # Commit the changes to the pull request branch
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
