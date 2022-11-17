@@ -1,6 +1,11 @@
 import * as dotenv from 'dotenv';
 import fs from 'fs';
 
+/**
+ * RequiredConfigurationValues
+ *
+ * This array is for the accepted keys in the environemt and will be used for validation.
+ */
 export const RequiredConfigurationValues: Array<string> = [
   'CONFIG_NAME',
   'ENV',
@@ -18,7 +23,20 @@ export const RequiredConfigurationValues: Array<string> = [
   'API_URL'
 ];
 
+/**
+ * SetupEnvironment
+ *
+ * [unit](../tests/unit/dotenv.spec.ts) |
+ * [.md file](../../docs/wiki/Tools/dotenv.md) |
+ * [wiki](https://github.com/Guzikowski/playwright.spikes/blob/master/docs/wiki/Tools/dotenv.md)
+ */
 export class SetupEnvironment {
+  /**
+   * initialise
+   *
+   * @param configName
+   * @param requireOverride
+   */
   public static initialise(configName?: string, requireOverride = false) {
     if (configName) {
       process.env.CONFIG_ENV_NAME = configName;
@@ -42,6 +60,9 @@ export class SetupEnvironment {
     this.setAdditionalConstructedVariables();
     this.validateEnvironmentConfiguration();
   }
+  /**
+   * overrideConfiguration
+   */
   private static overrideConfiguration(): void {
     const envConfig: dotenv.DotenvParseOutput = dotenv.parse(
       fs.readFileSync(`./src/environments/.env.${process.env.CONFIG_ENV_NAME}`)
@@ -51,6 +72,9 @@ export class SetupEnvironment {
       process.env[key] = envConfig[key];
     }
   }
+  /**
+   * validateEnvironmentConfiguration
+   */
   private static validateEnvironmentConfiguration(): void {
     const missingKeys: Array<string> = [];
     const missingValues: Array<string> = [];
@@ -71,9 +95,15 @@ export class SetupEnvironment {
       throw new Error(`${process.env.CONFIG_ENV_NAME} environemnt missing value: [${missingValues.toString()}]`);
     }
   }
+  /**
+   * getSecretStoreConfiguration
+   */
   private static getSecretStoreConfiguration(): void {
     process.env.MY_SECRET = 'Squirrel runs with deez nuts!';
   }
+  /**
+   * setAdditionalConstructedVariables
+   */
   private static setAdditionalConstructedVariables(): void {
     process.env.SITE_URL = `${process.env.ENV_PROTOCOL}://${process.env.SITE_BASE_URL}`;
     process.env.API_URL = `${process.env.ENV_PROTOCOL}://${process.env.API_BASE_URL}`;

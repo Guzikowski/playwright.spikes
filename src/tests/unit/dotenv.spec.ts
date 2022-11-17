@@ -2,6 +2,15 @@ import { test, expect } from '@playwright/test';
 import * as dotenv from 'dotenv';
 import { SetupEnvironment } from '../../environments/setup-environment';
 
+/**
+ * SetupEnvironment Unit Tests
+ *
+ * [source](../../environments/setup-environment.ts) |
+ * [wiki](https://github.com/PartsTrader/ptus.e2e.regression/blob/master/docs/wiki/Framework/API/AcmeApiHelper.md)
+ */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/ban-types
+type SetupEnvironmentUnitTest = {};
+
 test.describe('Environment Configuration', () => {
   test.beforeEach(() => {
     // required since it does not automatically override previous setting, valid since

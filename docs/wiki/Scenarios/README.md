@@ -7,4 +7,7 @@
 
 ## Scenarios for the Project
 
+- [Log in and Log out](./log-in-and-log-out.md)
+- [Buy a Red T-Shirt](./buy-a-red-t-shirt.md)
+
 [Back to Top](#swag---ui-regression---scenarios) | [Back to Wiki Home](../README.md)

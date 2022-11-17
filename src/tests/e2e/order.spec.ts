@@ -14,7 +14,7 @@ test.describe.serial('Tests for Swag', () => {
     });
 
     allure.epic('Swag e-Commerce Website');
-    allure.story('Buy some swag');
+    allure.story('Buy a Red T-Shirt');
 
     // login
     await SecurityWorkflow.login(page);

@@ -113,4 +113,4 @@ npm run test --project=e2e
 
 ## See also
 
-- [PTUS: End to End Regression Wiki](docs/wiki/README.md)
+- [Swag - UI Regression Wiki](docs/wiki/README.md)
