@@ -25,7 +25,7 @@ test.describe.serial('Tests for Swag', () => {
     await SecurityWorkflow.logout(page);
     await page.close();
   });
-  test('Order from the inventory and check out with visual regression', async ({ page }) => {
+  test('Order from the inventory and check out with visual regression @visual', async ({ page }) => {
     test.slow();
     const siteUrl = process.env.SITE_URL as string;
     allure.link({ url: siteUrl, name: 'test-site' });
