@@ -26,9 +26,6 @@ test.describe.serial('Tests for Swag', () => {
     await page.close();
   });
   test('Order from the inventory and check out with visual regression', async ({ page }) => {
-    if (process.env.CI) {
-      test.skip();
-    }
     test.slow();
     const siteUrl = process.env.SITE_URL as string;
     allure.link({ url: siteUrl, name: 'test-site' });
