@@ -60,28 +60,6 @@ const config: PlaywrightTestConfig = {
         trace: 'on-first-retry',
         ...devices['Desktop Chrome']
       }
-    },
-    {
-      name: 'e2e firefox',
-      retries: process.env.CI ? 2 : 0,
-      testDir: './src/tests/e2e',
-      use: {
-        actionTimeout: 0,
-        screenshot: 'only-on-failure',
-        trace: 'on-first-retry',
-        ...devices['Desktop Firefox']
-      }
-    },
-    {
-      name: 'e2e webkit',
-      retries: process.env.CI ? 2 : 0,
-      testDir: './src/tests/e2e',
-      use: {
-        actionTimeout: 0,
-        screenshot: 'only-on-failure',
-        trace: 'on-first-retry',
-        ...devices['Desktop Safari']
-      }
     }
   ],
 

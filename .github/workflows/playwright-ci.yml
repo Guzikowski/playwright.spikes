@@ -36,7 +36,7 @@ jobs:
           echo "CONFIG_ENV_NAME=${CONFIG_ENV_NAME} SITE_PASSWORD=${SITE_PASSWORD}" | tr " " "\n" >> .env
 
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+        run: npx playwright install --with-deps chromium
 
       - name: Run Playwright tests
         run: npx playwright test
