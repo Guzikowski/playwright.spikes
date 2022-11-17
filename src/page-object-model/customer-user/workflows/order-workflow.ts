@@ -47,6 +47,8 @@ export class OrderWorkflow {
   /**
    * orderRedTShirt_withVisual
    *
+   * This test works on windows, now trying on linux.
+   *
    * @param page
    */
   public static async orderRedTShirt_withVisual(page: Page) {
