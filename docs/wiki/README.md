@@ -9,7 +9,11 @@
     - [Setup](#setup)
   - [Usage](#usage)
   - [Reports](#reports)
-  - [Wiki Sections](#wiki-sections)
+
+[Framework](framework/README.md) |
+[Scenarios](scenarios/README.md) |
+[Standards](standards/README.md) |
+[Tools](tools/README.md)
 
 ## About the Project
 
@@ -95,12 +99,6 @@ npx playwright install
 ## Reports
 
 > Currently the reporting is configured to run [list] when executing the tests. This makes it easier to follow in the GH Actions to know which test is running as well as getting an early indication of what tests are passing and failing. The final job execution file is using [html], this may be adjust to using allure reporting if we find them more useful.
-
-<!-- Initial Project Setup -->
-
-## Wiki Sections
-
-> The Wiki has been organised into the following sections:
 
 [Framework](framework/README.md) |
 [Scenarios](scenarios/README.md) |

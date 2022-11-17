@@ -1,8 +1,8 @@
-# Swag - UI Regression -> Framework -> Customer User -> Workflow -> Order Workfloe
+# Swag - UI Regression -> Framework -> Customer User -> Workflow -> Order Workflow
 
 <!-- TABLE OF CONTENTS -->
 
-- [Swag - UI Regression -> Framework -> Customer User -> Workflow -> Order Workfloe](#swag---ui-regression---framework---customer-user---workflow---order-workfloe)
+- [Swag - UI Regression -> Framework -> Customer User -> Workflow -> Order Workflow](#swag---ui-regression---framework---customer-user---workflow---order-workflow)
   - [Order Workflow Definition](#order-workflow-definition)
     - [Usage](#usage)
     - [Pages Required](#pages-required)

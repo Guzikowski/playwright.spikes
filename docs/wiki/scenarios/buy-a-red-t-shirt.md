@@ -1,13 +1,13 @@
-# Swag - UI Regression -> Scenarios -> Buy a red T-shirt
+# Swag - UI Regression -> Scenarios -> Buy a Red T-Shirt
 
 <!-- TABLE OF CONTENTS -->
 
-- [Swag - UI Regression -> Scenarios -> Buy a red T-shirt](#swag---ui-regression---scenarios---buy-a-red-t-shirt)
-  - [Buy a red T-shirt Scenario Definition](#buy-a-red-t-shirt-scenario-definition)
+- [Swag - UI Regression -> Scenarios -> Buy a Red T-Shirt](#swag---ui-regression---scenarios---buy-a-red-t-shirt)
+  - [Buy a Red T-Shirt Scenario Definition](#buy-a-red-t-shirt-scenario-definition)
     - [Workflows Required](#workflows-required)
     - [Defined Workflows](#defined-workflows)
 
-## Buy a red T-shirt Scenario Definition
+## Buy a Red T-Shirt Scenario Definition
 
 > This is a workflow class for security related workflows.
 
