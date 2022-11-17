@@ -9,7 +9,7 @@ test.describe.serial('Tests for Swag', () => {
     allure.link({ url: siteUrl, name: 'test-site' });
     allure.link({ url: 'https://newrelic.com/', name: 'New Relic' });
     allure.link({
-      url: 'https://github.com/Guzikowski/playwright.spikes/blob/main/docs/wiki/Scenarios/buy-a-red-t-shirt.md',
+      url: 'https://github.com/Guzikowski/playwright.spikes/blob/main/docs/wiki/scenarios/buy-a-red-t-shirt.md',
       name: 'Wiki'
     });
     allure.epic('Swag e-Commerce Website');
@@ -31,7 +31,7 @@ test.describe.serial('Tests for Swag', () => {
     allure.link({ url: siteUrl, name: 'test-site' });
     allure.link({ url: 'https://newrelic.com/', name: 'New Relic' });
     allure.link({
-      url: 'https://github.com/Guzikowski/playwright.spikes/blob/main/docs/wiki/Scenarios/buy-a-red-t-shirt.md',
+      url: 'https://github.com/Guzikowski/playwright.spikes/blob/main/docs/wiki/scenarios/buy-a-red-t-shirt.md',
       name: 'Wiki'
     });
     allure.epic('Swag e-Commerce Website');

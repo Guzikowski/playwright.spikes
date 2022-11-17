@@ -27,8 +27,8 @@ export const RequiredConfigurationValues: Array<string> = [
  * SetupEnvironment
  *
  * [unit](../tests/unit/dotenv.spec.ts) |
- * [.md file](../../docs/wiki/Tools/dotenv.md) |
- * [wiki](https://github.com/Guzikowski/playwright.spikes/blob/master/docs/wiki/Tools/dotenv.md)
+ * [.md file](../../docs/wiki/tools/dotenv.md) |
+ * [wiki](https://github.com/Guzikowski/playwright.spikes/blob/master/docs/wiki/tools/dotenv.md)
  */
 export class SetupEnvironment {
   /**
