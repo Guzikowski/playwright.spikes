@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { allure } from 'allure-playwright';
 import * as dotenv from 'dotenv';
 import { SetupEnvironment } from '../../environments/setup-environment';
 
@@ -13,6 +14,8 @@ type SetupEnvironmentUnitTest = {};
 
 test.describe('Environment Configuration', () => {
   test.beforeEach(() => {
+    allure.epic('Environment Setup');
+    allure.story('Verify dotnet working properly');
     // required since it does not automatically override previous setting, valid since
     // you should only set the environment once
     delete process.env.ENV;
