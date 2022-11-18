@@ -3,11 +3,15 @@ import { allure, LabelName } from 'allure-playwright';
 
 test.describe('Unit Tests for Allure Reports', () => {
   test('Labels Usage basic test', async ({ page }) => {
+    allure.epic('Allure Report Spike');
+    allure.story('Labels');
     await page.goto('https://demo.playwright.dev/todomvc');
     allure.label({ name: LabelName.LANGUAGE, value: 'typescript' });
   });
 
   test('Links Usage basic test', async ({ page }) => {
+    allure.epic('Allure Report Spike');
+    allure.story('Links');
     await page.goto('https://demo.playwright.dev/todomvc');
     allure.link({ url: 'https://playwright.dev', name: 'playwright-site' });
     allure.issue({
@@ -17,21 +21,27 @@ test.describe('Unit Tests for Allure Reports', () => {
   });
 
   test('Id Usage basic test', async ({ page }) => {
+    allure.epic('Allure Report Spike');
+    allure.story('Ids');
     await page.goto('https://demo.playwright.dev/todomvc');
     allure.id('Some id');
   });
 
   test('Epics Usage basic test', async ({ page }) => {
-    allure.epic('Some Epic');
+    allure.epic('Allure Report Spike');
+    allure.story('Epic');
     await page.goto('https://demo.playwright.dev/todomvc');
   });
 
   test('Stories Usage basic test', async ({ page }) => {
+    allure.epic('Allure Report Spike');
+    allure.story('Story');
     await page.goto('https://demo.playwright.dev/todomvc');
-    allure.story('Some Story');
   });
 
   test('Screenshot usage basic test', async ({ page }, testInfo) => {
+    allure.epic('Allure Report Spike');
+    allure.story('Attach Screenshot');
     await testInfo.attach('basic-page-screen', {
       body: await page.screenshot(),
       contentType: 'image/png'
@@ -41,6 +51,8 @@ test.describe('Unit Tests for Allure Reports', () => {
   const TODO_ITEMS = ['buy some cheese', 'feed the cat', 'book a doctors appointment'];
 
   test('Attachments Usage basic test', async ({ page }, testInfo) => {
+    allure.epic('Allure Report Spike');
+    allure.story('Attach Data');
     await page.goto('https://demo.playwright.dev/todomvc');
     await testInfo.attach('TODO_ITEMS', {
       body: JSON.stringify(TODO_ITEMS),
@@ -49,6 +61,8 @@ test.describe('Unit Tests for Allure Reports', () => {
   });
 
   test('Steps usage basic test', async ({ page }) => {
+    allure.epic('Allure Report Spike');
+    allure.story('Steps');
     await test.step('Visit todolist page', async () => {
       await page.goto('https://demo.playwright.dev/todomvc');
     });

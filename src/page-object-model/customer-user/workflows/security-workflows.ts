@@ -19,7 +19,7 @@ export class SecurityWorkflow {
     const loginPage = new LoginPage(page);
     const inventoryPage = new InventoryPage(page);
     await loginPage.navigateTo();
-    await loginPage.login(process.env.SITE_STANDARD_USER as string, process.env.SITE_PASSWORD as string);
+    await loginPage.login(`${process.env.SITE_STANDARD_USER}`, `${process.env.SITE_PASSWORD}`);
     await inventoryPage.landedOn();
   }
   /**
