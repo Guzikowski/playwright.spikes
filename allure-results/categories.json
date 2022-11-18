@@ -18,6 +18,10 @@
     "matchedStatuses": ["failed"]
   },
   {
+    "name": "Test defects",
+    "matchedStatuses": ["broken"]
+  },
+  {
     "name": "Test passed",
     "matchedStatuses": ["passed"]
   }
