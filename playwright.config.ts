@@ -43,6 +43,7 @@ const config: PlaywrightTestConfig = {
       name: 'functional',
       retries: process.env.CI ? 1 : 0,
       testDir: './src/tests/functional',
+      snapshotPathTemplate: '{testDir}/__screenshots__/{testFilePath}/{arg}-{projectName}-{platform}{ext}',
       use: {
         actionTimeout: 0,
         screenshot: 'only-on-failure',
@@ -54,6 +55,7 @@ const config: PlaywrightTestConfig = {
       name: 'e2e',
       retries: process.env.CI ? 2 : 0,
       testDir: './src/tests/e2e',
+      snapshotPathTemplate: '{testDir}/__screenshots__/{testFilePath}/{arg}-{projectName}-{platform}{ext}',
       use: {
         actionTimeout: 0,
         screenshot: 'only-on-failure',

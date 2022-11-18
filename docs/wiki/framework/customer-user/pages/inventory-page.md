@@ -32,7 +32,7 @@
 
 > The following snapshaots are based our checks for visual regression:
 
-[Chrome](../../../../../src/tests/e2e/order.spec.ts-snapshots/inventory-e2e-win32.png)
+[Chrome](../../../../../src/tests/e2e/__screenshots__/order.spec.ts/inventory-e2e-win32.png)
 
 ### Test Coverage
 
