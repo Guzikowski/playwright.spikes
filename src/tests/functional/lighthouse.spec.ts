@@ -4,8 +4,10 @@ import playwright from 'playwright';
 import { allure } from 'allure-playwright';
 
 test.describe.serial('Lighthouse Sample Audit @lighthouse', () => {
-  test('Angular landing page', async () => {
+  test.beforeEach(() => {
     allure.epic('Lighthouse Spike');
+  });
+  test('Angular landing page', async () => {
     allure.story('Angular Site');
     test.slow();
     const browser = await playwright.chromium.launch({
@@ -29,7 +31,6 @@ test.describe.serial('Lighthouse Sample Audit @lighthouse', () => {
     await browser.close();
   });
   test('Sauce Demo landing page', async () => {
-    allure.epic('Lighthouse Spike');
     allure.story('Sauce Demo Site');
     test.slow();
     const browser = await playwright.chromium.launch({

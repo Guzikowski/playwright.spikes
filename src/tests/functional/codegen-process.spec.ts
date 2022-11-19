@@ -11,8 +11,10 @@ import { OrderWorkflow } from '../../page-object-model/customer-user/workflows/o
 import { SecurityWorkflow } from '../../page-object-model/customer-user/workflows/security-workflows';
 
 test.describe('Codegen Process to POM @codegen', () => {
-  test('Codegen raw capture of ordering', async ({ page }) => {
+  test.beforeEach(() => {
     allure.epic('Codegen to POM Spike');
+  });
+  test('Codegen raw capture of ordering', async ({ page }) => {
     allure.story('Raw Capture');
     await page.goto('https://www.saucedemo.com/');
     await page.locator('[data-test="username"]').click();
@@ -38,7 +40,6 @@ test.describe('Codegen Process to POM @codegen', () => {
   });
 
   test('Codegen Phase 1 clean up', async ({ page }) => {
-    allure.epic('Codegen to POM Spike');
     allure.story('Clean up pass');
     // 1. Remove unnecessay steps
     // 2. Replace environemnt variable
@@ -71,7 +72,6 @@ test.describe('Codegen Process to POM @codegen', () => {
     await page.close();
   });
   test('Codegen Phase 2 add POM', async ({ page }) => {
-    allure.epic('Codegen to POM Spike');
     allure.story('Adding POM');
     // 1. Implement initial POM
     // 2. Identify Workflows
@@ -113,7 +113,6 @@ test.describe('Codegen Process to POM @codegen', () => {
     await page.close();
   });
   test('Codegen Final Phase add Workflow', async ({ page }) => {
-    allure.epic('Codegen to POM Spike');
     allure.story('Add Workflow');
     // 1. Implement Workflows
     // login
@@ -126,7 +125,6 @@ test.describe('Codegen Process to POM @codegen', () => {
   });
 
   test('Codegen Start New', async ({ page }) => {
-    allure.epic('Codegen to POM Spike');
     allure.story('Start New from existing');
     // 1. Starting new Workflows
     // login
