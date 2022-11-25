@@ -70,7 +70,6 @@ jobs:
       - name: Update snapshots
         run: npx playwright test --update-snapshots --reporter=list --grep "@visual"
       # Commit the changes to the pull request branch
-      # should work
       - name: Commit snapshots
         run: |
           git add .
