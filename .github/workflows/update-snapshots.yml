@@ -77,4 +77,4 @@ jobs:
           git config --global user.name 'Ed Guzikowski' 
           git config --global user.email 'ed.guzikowski@gmail.com'
           git commit -m '[CI] Update Snapshots'
-          git push origin master
+          git push -f
