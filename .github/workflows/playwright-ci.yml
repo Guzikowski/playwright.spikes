@@ -73,3 +73,11 @@ jobs:
           PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PUBLISH_BRANCH: gh-pages
           PUBLISH_DIR: allure-history
+
+      # Deploy to the github-pages environment
+      - name: Deploy to GitHub Pages
+        id: deployment
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifact_name: allure-results
+        uses: actions/deploy-pages@v1
