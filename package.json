@@ -31,21 +31,21 @@
   "homepage": "https://github.com/Guzikowski/playwright.spikes#readme",
   "dependencies": {
     "@ngneat/falso": "^6.2.0",
-    "@playwright/test": "^1.28.0",
+    "@playwright/test": "^1.28.1",
     "@types/xml2js": "^0.4.11",
-    "allure-playwright": "^2.0.0-beta.19",
+    "allure-playwright": "^2.0.0-beta.20",
     "dotenv": "^16.0.3",
     "lighthouse": "^9.6.8",
-    "playwright": "^1.28.0",
+    "playwright": "^1.28.1",
     "playwright-lighthouse": "^2.2.2",
     "xml2js": "^0.4.23"
   },
   "devDependencies": {
     "@types/node": "^18.11.9",
-    "@typescript-eslint/eslint-plugin": "^5.43.0",
-    "@typescript-eslint/parser": "^5.43.0",
+    "@typescript-eslint/eslint-plugin": "^5.44.0",
+    "@typescript-eslint/parser": "^5.44.0",
     "allure-commandline": "^2.20.1",
-    "eslint": "^8.27.0",
+    "eslint": "^8.28.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-node": "^4.1.0",
     "eslint-config-prettier": "^8.5.0",
@@ -54,6 +54,6 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.2.1",
     "node-ts": "^5.1.2",
-    "prettier": "^2.7.1"
+    "prettier": "^2.8.0"
   }
 }

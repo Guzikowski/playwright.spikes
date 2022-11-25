@@ -70,6 +70,7 @@ jobs:
       - name: Update snapshots
         run: npx playwright test --update-snapshots --reporter=list --grep "@visual"
       # Commit the changes to the pull request branch
-      - uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: '[CI] Update Snapshots'
+      - name: Commit snapshots
+        run: |
+          git commit -m '[CI] Update Snapshots'
+          git push origin master
