@@ -58,9 +58,17 @@ jobs:
           keep_reports: 20
 
       # Deploy to the github-pages environment
-      - name: Deploy to GitHub Pages
-        id: deployment
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          artifact_name: allure-history
-        uses: actions/deploy-pages@v1
+      # - name: Deploy to GitHub Pages
+      #   id: deployment
+      #   with:
+      #     token: ${{ secrets.GITHUB_TOKEN }}
+      #     artifact_name: allure-history
+      #   uses: actions/deploy-pages@v1
+
+      - name: Deploy report to Github Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v2
+        env:
+          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUBLISH_BRANCH: gh-pages
+          PUBLISH_DIR: allure-history
