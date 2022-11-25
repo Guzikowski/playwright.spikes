@@ -69,12 +69,9 @@ jobs:
           path: './allure-results'
           retention-days: 20
           # Deploy to the github-pages environment
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
+      # - name: Deploy to GitHub Pages
+      #   id: deployment
+      #   uses: actions/deploy-pages@v1
 
   # deploy-test-results:
   #   needs: verify-pull-request
