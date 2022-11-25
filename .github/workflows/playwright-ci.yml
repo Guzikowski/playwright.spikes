@@ -5,6 +5,11 @@ on:
   pull_request:
     branches: [main, master]
 
+# Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+permissions:
+  pages: write # to deploy to Pages
+  id-token: write # to verify the deployment originates from an appropriate source
+
 jobs:
   verify-pull-request:
     timeout-minutes: 15
@@ -52,22 +57,10 @@ jobs:
           allure_history: allure-history
           keep_reports: 20
 
-  deploy-test-results:
-    needs: verify-pull-request
-
-    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
-    permissions:
-      pages: write # to deploy to Pages
-      id-token: write # to verify the deployment originates from an appropriate source
-
-    environment:
-      name: gh-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    runs-on: ubuntu-latest
-
-    steps:
       # Deploy to the github-pages environment
       - name: Deploy to GitHub Pages
         id: deployment
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifact_name: allure-history
         uses: actions/deploy-pages@v1

@@ -70,7 +70,10 @@ jobs:
       - name: Update snapshots
         run: npx playwright test --update-snapshots --reporter=list --grep "@visual"
       # Commit the changes to the pull request branch
+      # should work
       - name: Commit snapshots
         run: |
+          git config --global user.name 'Ed Guzikowski' 
+          git config --global user.email 'ed.guzikowski@gmail.com'
           git commit -m '[CI] Update Snapshots'
           git push origin master
