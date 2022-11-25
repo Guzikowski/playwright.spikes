@@ -61,5 +61,6 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           artifact_name: allure-history
         uses: actions/deploy-pages@v1
