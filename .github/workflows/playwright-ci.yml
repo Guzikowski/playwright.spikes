@@ -70,4 +70,6 @@ jobs:
       # Deploy to the github-pages environment
       - name: Deploy to GitHub Pages
         id: deployment
+        with:
+          artifact_name: gh-pages
         uses: actions/deploy-pages@v1
