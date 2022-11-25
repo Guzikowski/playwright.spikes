@@ -5,12 +5,6 @@ on:
   pull_request:
     branches: [main, master]
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 jobs:
   verify-pull-request:
     timeout-minutes: 15
@@ -47,81 +41,33 @@ jobs:
       - name: Run Playwright tests
         run: npx playwright test
 
-      - uses: actions/upload-artifact@master
-        with:
-          name: allure-results
-          path: allure-results
-          retention-days: 20
-
-      - name: Get Allure history
-        uses: actions/checkout@v3
+      - name: Test marketplace action
+        uses: simple-elf/allure-report-action@master
         if: always()
-        continue-on-error: true
+        id: allure-report
         with:
-          ref: gh-pages
-          path: gh-pages
+          allure_results: allure-results
+          gh_pages: gh-pages
+          allure_report: allure-report
+          allure_history: allure-history
+          keep_reports: 20
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v2
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: './allure-results'
-          retention-days: 20
-          # Deploy to the github-pages environment
-      # - name: Deploy to GitHub Pages
-      #   id: deployment
-      #   uses: actions/deploy-pages@v1
+    deploy-test-results:
+      needs: verify-pull-request
 
-  # deploy-test-results:
-  #   needs: verify-pull-request
-  #   environment:
-  #     name: github-pages
-  #     url: ${{ steps.deployment.outputs.page_url }}
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/upload-artifact@master
-  #       with:
-  #         name: allure-results
-  #         path: allure-results
-  #         retention-days: 20
+      # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+      permissions:
+        pages: write # to deploy to Pages
+        id-token: write # to verify the deployment originates from an appropriate source
 
-  #     - name: Get Allure history
-  #       uses: actions/checkout@v3
-  #       if: always()
-  #       continue-on-error: true
-  #       with:
-  #         ref: gh-pages
-  #         path: gh-pages
-  #     # - name: Checkout
-  #     #   uses: actions/checkout@v3
-  #     - name: Setup Pages
-  #       uses: actions/configure-pages@v2
-  #     - name: Upload artifact
-  #       uses: actions/upload-pages-artifact@v1
-  #       with:
-  #         # Upload entire repository
-  #         path: './allure-history'
-  #         retention-days: 20
-  #     - name: Deploy to GitHub Pages
-  #       id: deployment
-  #       uses: actions/deploy-pages@v1
+      environment:
+        name: github-pages
+        url: ${{ steps.deployment.outputs.page_url }}
 
-  # - name: Test marketplace action
-  #   uses: simple-elf/allure-report-action@master
-  #   if: always()
-  #   id: allure-report
-  #   with:
-  #     allure_results: allure-results
-  #     gh_pages: gh-pages
-  #     allure_report: allure-report
-  #     allure_history: allure-history
-  #     keep_reports: 20
+      runs-on: ubuntu-latest
 
-  # - name: Deploy report to Github Pages
-  # if: always()
-  # uses: peaceiris/actions-gh-pages@v2
-  # env:
-  #   PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #   PUBLISH_BRANCH: gh-pages
-  #   PUBLISH_DIR: allure-history
+      steps:
+        # Deploy to the github-pages environment
+        - name: Deploy to GitHub Pages
+          id: deployment
+          uses: actions/deploy-pages@v1
