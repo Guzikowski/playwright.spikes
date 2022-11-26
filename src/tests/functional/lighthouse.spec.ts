@@ -25,7 +25,13 @@ test.describe.serial('Lighthouse Sample Audit @lighthouse', () => {
         seo: 50,
         pwa: 50
       },
-      port: 9222
+      ignoreError: true,
+      port: 9222,
+      reports: {
+        formats: { html: true },
+        name: `angular-lighthouse-report-${Date.now().toString()}`,
+        directory: 'lighthouse-reports'
+      }
     });
 
     await browser.close();
@@ -48,7 +54,13 @@ test.describe.serial('Lighthouse Sample Audit @lighthouse', () => {
         seo: 90,
         pwa: 90
       },
-      port: 9222
+      ignoreError: true,
+      port: 9222,
+      reports: {
+        formats: { html: true },
+        name: `sauce-demo-lighthouse-report-${Date.now().toString()}`,
+        directory: 'lighthouse-reports'
+      }
     });
 
     await browser.close();
