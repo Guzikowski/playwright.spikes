@@ -1,0 +1,8 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo 'Running lint-staged ...'
+npx.cmd lint-staged --concurrent false --relative
+echo 'Running Build Typescript ...'
+npm run build
+echo 'Finished!'

@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import { allure } from 'allure-playwright';
 import * as dotenv from 'dotenv';
 import { SetupEnvironment } from '../../environments/setup-environment';
@@ -7,17 +7,15 @@ import { SetupEnvironment } from '../../environments/setup-environment';
  * SetupEnvironment Unit Tests
  *
  * [source](../../environments/setup-environment.ts) |
- * [wiki](https://github.com/PartsTrader/ptus.e2e.regression/blob/master/docs/wiki/framework/API/AcmeApiHelper.md)
+ * [wiki](https://github.com/)
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/ban-types
-type SetupEnvironmentUnitTest = {};
-
 test.describe('Environment Configuration', () => {
   test.beforeEach(() => {
     allure.epic('Environment Setup');
     allure.story('Verify dotnet working properly');
     // required since it does not automatically override previous setting, valid since
     // you should only set the environment once
+    // biome-ignore lint/performance/noDelete: <explanation>
     delete process.env.ENV;
   });
   test('Check Default with process', () => {
@@ -59,7 +57,7 @@ test.describe('Environment Configuration', () => {
     const result = dotenv.config({ path: './src/environments/.env.CI' });
     expect(result).not.toBe(null);
     expect(result.parsed).not.toBe(null);
-    if (result.parsed && result.parsed.ENV) {
+    if (result.parsed?.ENV) {
       expect(result.parsed.ENV).toBe('CI');
     }
   });
@@ -68,7 +66,7 @@ test.describe('Environment Configuration', () => {
     const result = dotenv.config({ path: `./src/environments/.env.${process.env.NODE_ENV}` });
     expect(result).not.toBe(null);
     expect(result.parsed).not.toBe(null);
-    if (result.parsed && result.parsed.ENV) {
+    if (result.parsed?.ENV) {
       expect(result.parsed.ENV).toBe('CI');
     }
   });

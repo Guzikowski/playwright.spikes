@@ -1,10 +1,16 @@
 import type { PlaywrightTestConfig } from '@playwright/test';
-import { devices } from '@playwright/test';
+import { testPlanFilter } from "allure-playwright/dist/testplan";
+import * as os from "os";
 
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 const config: PlaywrightTestConfig = {
+  testMatch: [
+    /.*\.ts/
+    // 'tests/functional/ui/login-static-user.spec.ts'
+    // 'tests/e2e/rnd-verify-cancels.spec.ts'
+  ],
   globalSetup: require.resolve('./src/environments/global-setup'),
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
@@ -24,12 +30,33 @@ const config: PlaywrightTestConfig = {
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
+   /* Fail execution after # of failures to reduce the waiting when it is busted */
+   maxFailures: process.env.CI ? 5 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: process.env.CI ? [['allure-playwright'], ['list']] : [['allure-playwright'], ['html'], ['dot']],
-  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+  grep: testPlanFilter(),
+  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
+  reporter: [['html'], ['list'], ['blob'],
+   [
+      "allure-playwright",
+      {
+        detail: true,
+        suiteTitle: false,
+        environmentInfo: {
+          os_platform: os.platform(),
+          os_release: os.release(),
+          os_version: os.version(),
+          node_version: process.version         
+        }
+      }
+    ]
+  ],
 
   /* Configure projects for major browsers */
   projects: [
+    {
+      name: 'setup',
+      testMatch: ['**/src/environments/setup/global-setup.ts'],
+    },
     {
       name: 'unit',
       retries: 0,
@@ -47,20 +74,56 @@ const config: PlaywrightTestConfig = {
       use: {
         actionTimeout: 0,
         screenshot: 'only-on-failure',
-        trace: 'on-first-retry',
-        ...devices['Desktop Chrome']
+        trace: 'retain-on-first-failure',
+        browserName: 'chromium',
       }
     },
     {
-      name: 'e2e',
-      retries: process.env.CI ? 2 : 0,
+      name: 'chromium',
+      retries: process.env.CI ? 1 : 0,
       testDir: './src/tests/e2e',
       snapshotPathTemplate: '{testDir}/__screenshots__/{testFilePath}/{arg}-{projectName}-{platform}{ext}',
       use: {
         actionTimeout: 0,
-        screenshot: 'only-on-failure',
-        trace: 'on-first-retry',
-        ...devices['Desktop Chrome']
+        browserName: 'chromium',
+        screenshot: {
+          mode: 'only-on-failure',
+          fullPage: true
+        },
+        trace: 'retain-on-first-failure',
+        viewport: { width: 1920, height: 1080 }
+      }
+    },
+    {
+      name: 'firefox',
+      retries: process.env.CI ? 1 : 0,
+      testDir: './src/tests/e2e',
+      snapshotPathTemplate: '{testDir}/__screenshots__/{testFilePath}/{arg}-{projectName}-{platform}{ext}',
+      use: {
+        actionTimeout: 0,
+        browserName: 'firefox',
+        screenshot: {
+          mode: 'only-on-failure',
+          fullPage: true
+        },
+        trace: 'retain-on-first-failure',
+        viewport: { width: 1920, height: 1080 }
+      }
+    },
+    {
+      name: 'webkit',
+      retries: process.env.CI ? 1 : 0,
+      testDir: './src/tests/e2e',
+      snapshotPathTemplate: '{testDir}/__screenshots__/{testFilePath}/{arg}-{projectName}-{platform}{ext}',
+      use: {
+        actionTimeout: 0,
+        browserName: 'webkit',
+        screenshot: {
+          mode: 'only-on-failure',
+          fullPage: true
+        },
+        trace: 'retain-on-first-failure',
+        viewport: { width: 1920, height: 1080 }
       }
     }
   ],

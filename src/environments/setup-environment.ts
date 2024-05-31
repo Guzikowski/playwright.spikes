@@ -1,5 +1,6 @@
-import * as dotenv from 'dotenv';
+// biome-ignore lint/style/useNodejsImportProtocol: <explanation>
 import fs from 'fs';
+import * as dotenv from 'dotenv';
 
 /**
  * RequiredConfigurationValues
@@ -30,14 +31,14 @@ export const RequiredConfigurationValues: Array<string> = [
  * [.md file](../../docs/wiki/tools/dotenv.md) |
  * [wiki](https://github.com/Guzikowski/playwright.spikes/blob/master/docs/wiki/tools/dotenv.md)
  */
-export class SetupEnvironment {
-  /**
-   * initialise
-   *
-   * @param configName
-   * @param requireOverride
-   */
-  public static initialise(configName?: string, requireOverride = false) {
+/**
+ * initialise
+ *
+ * @param configName
+ * @param requireOverride
+ */
+export namespace SetupEnvironment {
+  export function initialise(configName?: string, requireOverride = false) {
     if (configName) {
       process.env.CONFIG_ENV_NAME = configName;
     } else {
@@ -48,7 +49,7 @@ export class SetupEnvironment {
     }
     if (process.env.CONFIG_ENV_NAME !== 'CUSTOM') {
       if (requireOverride) {
-        this.overrideConfiguration();
+        overrideConfiguration();
       } else {
         const result = dotenv.config({ path: `./src/environments/.env.${process.env.CONFIG_ENV_NAME}` });
         if (result.error) {
@@ -56,29 +57,29 @@ export class SetupEnvironment {
         }
       }
     }
-    this.getSecretStoreConfiguration();
-    this.setAdditionalConstructedVariables();
-    this.validateEnvironmentConfiguration();
+    getSecretStoreConfiguration();
+    setAdditionalConstructedVariables();
+    validateEnvironmentConfiguration();
   }
+
   /**
    * overrideConfiguration
    */
-  private static overrideConfiguration(): void {
-    const envConfig: dotenv.DotenvParseOutput = dotenv.parse(
-      fs.readFileSync(`./src/environments/.env.${process.env.CONFIG_ENV_NAME}`)
-    );
+  function overrideConfiguration(): void {
+    const envConfig: dotenv.DotenvParseOutput = dotenv.parse(fs.readFileSync(`./src/environments/.env.${process.env.CONFIG_ENV_NAME}`));
     // eslint-disable-next-line no-restricted-syntax, guard-for-in
     for (const key in envConfig) {
       process.env[key] = envConfig[key];
     }
   }
+
   /**
    * validateEnvironmentConfiguration
    */
-  private static validateEnvironmentConfiguration(): void {
+  function validateEnvironmentConfiguration(): void {
     const missingKeys: Array<string> = [];
     const missingValues: Array<string> = [];
-    RequiredConfigurationValues.forEach((key) => {
+    for (const key of RequiredConfigurationValues) {
       if (process.env[key] === undefined) {
         missingKeys.push(key);
       }
@@ -87,25 +88,28 @@ export class SetupEnvironment {
           missingValues.push(key);
         }
       }
-    });
+    }
     if (missingKeys.length > 0) {
-      throw new Error(`${process.env.CONFIG_ENV_NAME} environemnt missing variables: [${missingKeys.toString()}]`);
+      throw new Error(`${process.env.CONFIG_ENV_NAME} environment missing variables: [${missingKeys.toString()}]`);
     }
     if (missingValues.length > 0) {
-      throw new Error(`${process.env.CONFIG_ENV_NAME} environemnt missing value: [${missingValues.toString()}]`);
+      throw new Error(`${process.env.CONFIG_ENV_NAME} environment missing value: [${missingValues.toString()}]`);
     }
   }
+
   /**
    * getSecretStoreConfiguration
    */
-  private static getSecretStoreConfiguration(): void {
+  function getSecretStoreConfiguration(): void {
     process.env.MY_SECRET = 'Squirrel runs with deez nuts!';
   }
+
   /**
    * setAdditionalConstructedVariables
    */
-  private static setAdditionalConstructedVariables(): void {
+  function setAdditionalConstructedVariables(): void {
     process.env.SITE_URL = `${process.env.ENV_PROTOCOL}://${process.env.SITE_BASE_URL}`;
     process.env.API_URL = `${process.env.ENV_PROTOCOL}://${process.env.API_BASE_URL}`;
   }
 }
+export default SetupEnvironment;

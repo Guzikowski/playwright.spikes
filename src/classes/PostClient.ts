@@ -1,11 +1,10 @@
-import { APIRequestContext } from '@playwright/test';
+import type { APIRequestContext, APIResponse } from '@playwright/test';
 
 /**
  * BaseApi
  */
 export interface BaseApi {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  sessionGet(url: string): Promise<any>;
+  sessionGet(url: string): Promise<APIResponse>;
 }
 /**
  * BaseApiHelper
@@ -21,8 +20,7 @@ export class BaseApiHelper implements BaseApi {
    * @param url
    * @returns
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public async sessionGet(url: string): Promise<any> {
+  public async sessionGet(url: string): Promise<APIResponse> {
     const response = await this.request.get(url);
     return response;
   }

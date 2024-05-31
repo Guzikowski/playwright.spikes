@@ -1,7 +1,7 @@
 /* eslint-disable global-require */
 import { expect, test } from '@playwright/test';
 import { allure } from 'allure-playwright';
-import { BaseApi, BaseApiHelper } from '../../classes/PostClient';
+import { type BaseApi, BaseApiHelper } from '../../classes/PostClient';
 
 test.describe('Unit Tests for Playwright API Testing', () => {
   let baseApi: BaseApi;
