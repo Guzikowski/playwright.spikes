@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import { allure } from 'allure-playwright';
 
 test.describe('Tests for Visual Regression @visual', () => {

@@ -27,10 +27,13 @@ const config: PlaywrightTestConfig = {
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
+  /* c8 ignore next */
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
+  /* c8 ignore next */
   workers: process.env.CI ? 1 : undefined,
    /* Fail execution after # of failures to reduce the waiting when it is busted */
+   /* c8 ignore next */
    maxFailures: process.env.CI ? 5 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   grep: testPlanFilter(),
@@ -68,6 +71,7 @@ const config: PlaywrightTestConfig = {
     },
     {
       name: 'functional',
+      /* c8 ignore next */
       retries: process.env.CI ? 1 : 0,
       testDir: './src/tests/functional',
       snapshotPathTemplate: '{testDir}/__screenshots__/{testFilePath}/{arg}-{projectName}-{platform}{ext}',
@@ -80,6 +84,7 @@ const config: PlaywrightTestConfig = {
     },
     {
       name: 'chromium',
+      /* c8 ignore next */
       retries: process.env.CI ? 1 : 0,
       testDir: './src/tests/e2e',
       snapshotPathTemplate: '{testDir}/__screenshots__/{testFilePath}/{arg}-{projectName}-{platform}{ext}',
@@ -96,6 +101,7 @@ const config: PlaywrightTestConfig = {
     },
     {
       name: 'firefox',
+      /* c8 ignore next */
       retries: process.env.CI ? 1 : 0,
       testDir: './src/tests/e2e',
       snapshotPathTemplate: '{testDir}/__screenshots__/{testFilePath}/{arg}-{projectName}-{platform}{ext}',
@@ -112,6 +118,7 @@ const config: PlaywrightTestConfig = {
     },
     {
       name: 'webkit',
+      /* c8 ignore next */
       retries: process.env.CI ? 1 : 0,
       testDir: './src/tests/e2e',
       snapshotPathTemplate: '{testDir}/__screenshots__/{testFilePath}/{arg}-{projectName}-{platform}{ext}',
