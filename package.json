@@ -6,21 +6,35 @@
   "scripts": {
     "report": "npx playwright test --reporter=html && npx playwright show-report",
     "debug": "npx playwright test --debug",
-    "test": "npx playwright test",
+    "test:all": "npx playwright test",
+    "test:regress": "npx playwright test --grep-invert \"@flaky\"",
+    "test:flaky": "npx playwright test --grep \"@flaky\" --max-failures 0 --retries 0 --trace on",
     "codegen": "npx playwright codegen",
+    "ui-mode": "npx playwright test --ui",
     "build": "tsc -b",
     "watch": "tsc -w",
-    "lint": "eslint src --ext .ts,.tsx",
+    "lint": "npx @biomejs/biome lint . --apply",
+    "coverage": "c8 --reporter=html --reporter=text --reporter=text-summary --clean npm run test:all",
     "check": "ncu & ncu -g",
-    "allure:generate": "npx allure generate ./allure-results --clean",
-    "allure:open": "npx allure open ./allure-report",
+    "prepare": "husky",
+    "allure:generate": "npx allure generate allure-results --clean -o allure-report",
+    "allure:open": "npx allure open",
     "allure:serve": "npx allure serve",
-    "posttest": "npm run allure:generate && npm run allure:open",
+    "allure:run": "npm run allure:generate && npm run allure:open",
     "clean": "rd /s /q allure-results allure-report playwright-report test-results .cache>nul 2>&1|echo.>nul"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run test"
+    }
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Guzikowski/playwright.spikes.git"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": "npx @biomejs/biome check . --apply"
   },
   "keywords": [],
   "author": "",
@@ -30,30 +44,28 @@
   },
   "homepage": "https://github.com/Guzikowski/playwright.spikes#readme",
   "dependencies": {
-    "@ngneat/falso": "^6.2.0",
-    "@playwright/test": "^1.28.1",
-    "@types/xml2js": "^0.4.11",
-    "allure-playwright": "^2.0.0-beta.20",
-    "dotenv": "^16.0.3",
-    "lighthouse": "^9.6.8",
-    "playwright": "^1.28.1",
-    "playwright-lighthouse": "^2.2.2",
-    "xml2js": "^0.4.23"
+    "@ngneat/falso": "^7.2.0",
+    "@playwright/test": "^1.44.1",
+    "@types/xml2js": "^0.4.14",
+    "dotenv": "^16.4.5",
+    "fs-extra": "^11.2.0",
+    "immutable": "^5.0.0-beta.5",
+    "lighthouse": "^12.0.0",
+    "playwright": "^1.44.1",
+    "playwright-lighthouse": "^4.0.0",
+    "xml2js": "^0.6.2"
   },
   "devDependencies": {
-    "@types/node": "^18.11.9",
-    "@typescript-eslint/eslint-plugin": "^5.44.0",
-    "@typescript-eslint/parser": "^5.44.0",
-    "allure-commandline": "^2.20.1",
-    "eslint": "^8.28.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-node": "^4.1.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jsx-a11y": "^6.6.1",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "node-ts": "^5.1.2",
-    "prettier": "^2.8.0"
+    "@biomejs/biome": "1.7.3",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.13.0",
+    "allure-commandline": "^2.29.0",
+    "allure-playwright": "^2.15.1",
+    "husky": "^9.0.11",
+    "@types/sinon": "^17.0.3",
+    "sinon": "^17.0.2",
+    "c8": "^9.1.0",
+    "lint-staged": "^15.2.5",
+    "node-ts": "^6.0.1"
   }
 }

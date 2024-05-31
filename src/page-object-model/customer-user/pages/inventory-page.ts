@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { Page, expect } from '@playwright/test';
+import { type Page, expect } from '@playwright/test';
 
 /**
  * InventoryPage

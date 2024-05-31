@@ -1,17 +1,23 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "baseUrl": "./src",
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "target": "es2022",
+    "moduleResolution": "node",
+    "lib": ["es2022", "dom"],
     "strict": true,
     "declaration": true,
-    "module": "commonjs",
-    "noEmit": true,
-    "sourceMap": true,
-    "esModuleInterop": true,
-    "outDir": "public",
-    "rootDir": "src",
-    "watch": false
+    "module": "esnext",
+    "rootDir": ".",
+    "types": ["node", "playwright"],
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   },
-  "include": ["src/**/*"],
+  "no-inner-declarations": false,
+  "include": ["**/*.ts"],
   "exclude": ["node_modules"]
 }

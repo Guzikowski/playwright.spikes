@@ -12,7 +12,7 @@ jobs:
     environment: 'CI'
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v3
         with:
@@ -36,12 +36,12 @@ jobs:
           echo "CONFIG_ENV_NAME=${CONFIG_ENV_NAME} SITE_PASSWORD=${SITE_PASSWORD}" | tr " " "\n" >> .env
 
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps chromium
+        run: npx playwright install --with-deps
 
       - name: Run Playwright tests
         run: npx playwright test
 
-      - uses: actions/upload-artifact@master
+      - uses: actions/upload-artifact@v4
         with:
           name: allure-results
           path: allure-results

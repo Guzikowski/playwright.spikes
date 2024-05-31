@@ -1,5 +1,5 @@
-import { test, expect } from '@playwright/test';
-import { allure, LabelName } from 'allure-playwright';
+import { expect, test } from '@playwright/test';
+import { LabelName, allure } from 'allure-playwright';
 
 test.describe('Unit Tests for Allure Reports', () => {
   const siteUrl = 'https://demo.playwright.dev/todomvc';
@@ -10,17 +10,14 @@ test.describe('Unit Tests for Allure Reports', () => {
   test('Labels Usage basic test', async ({ page }) => {
     allure.story('Labels');
     await page.goto(siteUrl);
-    allure.label({ name: LabelName.LANGUAGE, value: 'typescript' });
+    allure.label(LabelName.LANGUAGE, 'typescript');
   });
   test('Links Usage basic test', async ({ page }) => {
     allure.epic('Allure Report Spike');
     allure.story('Links');
     await page.goto(siteUrl);
-    allure.link({ url: 'https://playwright.dev', name: 'playwright-site' });
-    allure.issue({
-      url: 'https://github.com/allure-framework/allure-js/issues/352',
-      name: 'Target issue'
-    });
+    allure.link('https://playwright.dev', 'playwright-site');
+    allure.issue('https://github.com/allure-framework/allure-js/issues/352', 'Target issue');
   });
   test('Id Usage basic test', async ({ page }) => {
     allure.story('Ids');

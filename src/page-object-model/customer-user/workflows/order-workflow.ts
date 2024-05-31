@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { expect, Page } from '@playwright/test';
+import { type Page, expect } from '@playwright/test';
 import { CartPage } from '../pages/cart-page';
 import { CheckoutCompletePage } from '../pages/checkout-complete-page';
 import { CheckoutStepOnePage } from '../pages/checkout-step-one-page';
@@ -12,13 +12,13 @@ import { InventoryPage } from '../pages/inventory-page';
  * [.md file](../../../../docs/wiki/framework/customer-user/workflows/order-workflow.md) |
  * [wiki](https://github.com/Guzikowski/playwright.spikes/blob/master/docs/wiki/framework/customer-user/workflows/order-workflow.md)
  */
-export class OrderWorkflow {
+export namespace OrderWorkflow {
   /**
    * orderRedTShirt
    *
    * @param page
    */
-  public static async orderRedTShirt(page: Page) {
+  export async function orderRedTShirt(page: Page) {
     // Add inventory to Cart
     const inventoryPage = new InventoryPage(page);
     await inventoryPage.navigateTo();
@@ -51,7 +51,7 @@ export class OrderWorkflow {
    *
    * @param page
    */
-  public static async orderRedTShirt_withVisual(page: Page) {
+  export async function orderRedTShirt_withVisual(page: Page) {
     // Add inventory to Cart
     const inventoryPage = new InventoryPage(page);
     await inventoryPage.navigateTo();

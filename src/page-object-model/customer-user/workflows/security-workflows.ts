@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { expect, Page } from '@playwright/test';
+import { type Page, expect } from '@playwright/test';
 import { InventoryPage } from '../pages/inventory-page';
 import { LoginPage } from '../pages/login-page';
 
@@ -9,13 +9,13 @@ import { LoginPage } from '../pages/login-page';
  * [.md file](../../../../docs/wiki/framework/customer-user/workflows/security-workflow.md) |
  * [wiki](https://github.com/Guzikowski/playwright.spikes/blob/master/docs/wiki/framework/customer-user/workflows/security-workflow.md)
  */
-export class SecurityWorkflow {
+export namespace SecurityWorkflow {
   /**
    * login
    *
    * @param page
    */
-  public static async login(page: Page) {
+  export async function login(page: Page) {
     const loginPage = new LoginPage(page);
     const inventoryPage = new InventoryPage(page);
     await loginPage.navigateTo();
@@ -27,7 +27,7 @@ export class SecurityWorkflow {
    *
    * @param page
    */
-  public static async login_withVisual(page: Page) {
+  export async function login_withVisual(page: Page) {
     const loginPage = new LoginPage(page);
     const inventoryPage = new InventoryPage(page);
     await loginPage.navigateTo();
@@ -40,7 +40,7 @@ export class SecurityWorkflow {
    *
    * @param page
    */
-  public static async logout(page: Page) {
+  export async function logout(page: Page) {
     const loginPage = new LoginPage(page);
     const inventoryPage = new InventoryPage(page);
     await inventoryPage.navigateTo();

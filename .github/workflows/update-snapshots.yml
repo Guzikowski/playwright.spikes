@@ -65,7 +65,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium
+        run: npx playwright install --with-deps
       # Update the snapshots based on the current UI
       - name: Update snapshots
         run: npx playwright test --update-snapshots --reporter=list --grep "@visual"
