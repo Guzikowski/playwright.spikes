@@ -1,0 +1,140 @@
+name: Playwright Shard Experiment
+on:
+  workflow_dispatch:
+
+# This is not a working workflow, but it is sanitised version for an example
+#
+# This reguires a setup with AWS S3 bucket and AWS CLI configured as well as the AWS credentials
+# Also, may want to adjust the bucket structure, this assumes multiple environments and workflows,
+# but you may want to simplify it to just report for all.
+# You will need to provide inputs and env variables for the workflow to work
+jobs:
+  playwright-tests:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    environment: 'CI'
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Compile TypeScript
+        run: npm run build
+
+      - name: Run Linter
+        run: npm run lint
+
+      - name: Configure Environment
+        env:
+          CONFIG_ENV_NAME: 'CI'
+          SITE_PASSWORD: 'secret_sauce'
+        run: |
+          touch .env
+          echo "CONFIG_ENV_NAME=${CONFIG_ENV_NAME} SITE_PASSWORD=${SITE_PASSWORD}" | tr " " "\n" >> .env
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright tests
+        run: npx playwright test 
+
+      # You will need to add this to populate the Executor section, it needs to be generated in the test run
+      - name: Create executor.json
+        shell: pwsh
+        run: |
+          echo "{
+            `"name`": `"GitHub Actions`",
+            `"type`": `"GitHub`",
+            `"url`": `"https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}`",
+            `"reportName`": `"Allure Report for ${{ github.repository }} - ${{ github.run_id }}`",
+            `"buildOrder`": `"${{ github.run_number }}`",
+            `"buildName`": `"${{ github.workflow }}`",
+            `"buildUrl`": `"https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}`",
+            `"reportUrl`": `"https://${{ env.BUCKET_NAME }}.s3.amazonaws.com/${{ env.ENVIRONMENT}}/${{ env.WORKFLOW_NAME }}/allure-report/${{ github.run_number }}/index.html`",
+          }" > ./allure-results/executor.json
+
+      # You can add this to your repository rather than generating in the test run
+      - name: Create Allure categories.json
+        if: ${{ inputs.GENERATE_ALLURE_REPORT == 'true' }}
+        shell: pwsh
+        run: |
+            echo '[
+              {
+                "name": "Ignored tests",
+                "matchedStatuses": ["skipped"]
+              },
+              {
+                "name": "Infrastructure issues",
+                "matchedStatuses": ["broken"],
+                "messageRegex": ".*Timeout.*|.*Timed out.*|.*Connection.*"
+              },
+              {
+                "name": "Application issues",
+                "matchedStatuses": ["failed"],
+                "messageRegex": ".*Timed out.*"
+              },
+              {
+                "name": "Outdated tests",
+                "matchedStatuses": ["failed"],
+                "messageRegex": ".*AssertionError.*"
+              },
+              {
+                "name": "Other issues",
+                "matchedStatuses": ["failed", "broken"]
+              }
+            ]' > ./allure-results/categories.json
+    
+      # You will need to store the history in the S3 bucket and then download it to merge with the current run this will 
+      # allow you to see the history of the test runs in the Allure report for trending and comparison
+      - name: Download latest Allure history from S3
+        if: ${{ inputs.GENERATE_ALLURE_REPORT == 'true' }}
+        shell: pwsh
+        run: |
+            aws s3 cp "s3://${{ env.BUCKET_NAME }}/${{ env.ENVIRONMENT }}/${{ env.WORKFLOW_NAME }}/allure-report/history" ./allure-results/history --recursive || echo "No previous history found"
+    
+      - name: Generate Allure report
+        if: ${{ inputs.GENERATE_ALLURE_REPORT == 'true' }}
+        shell: bash
+        run: |
+          npm run allure:generate
+      
+      # This is not required unless you want to upload the report to the artifacts
+      - uses: actions/upload-artifact@v4
+        if: ${{ inputs.GENERATE_ALLURE_REPORT == 'true' }}
+        with:
+          name: allure-report
+          path: allure-report/
+          retention-days: 1
+
+      # This is required to upload the report to the S3 bucket
+      - name: Upload Allure report to S3
+        if: ${{ inputs.GENERATE_ALLURE_REPORT == 'true' }}
+        shell: pwsh
+        run: |
+          aws s3 cp ./allure-report s3://${{ env.BUCKET_NAME }}/${{ env.ENVIRONMENT }}/${{ env.WORKFLOW_NAME }}/allure-report/${{ env.CURRENT_VERSION }}/ --recursive
+          Write-Host "S3 URL: https://${{ env.BUCKET_NAME }}.s3. ${{ env.AWS_REGION }}.amazonaws.com/${{ env.ENVIRONMENT }}/${{ env.WORKFLOW_NAME }}/allure-report/${{ env.CURRENT_VERSION }}/index.html"
+          Write-Host "::notice title=Test Results::https://${{ env.BUCKET_NAME }}.s3. ${{ env.AWS_REGION }}.amazonaws.com/${{ inputs.ENVIRONMENT_HOST_PREFIX }}${{ env.WORKFLOW_NAME }}/allure-report/${{ env.CURRENT_VERSION }}/index.html"
+    
+      # This is required to upload the history to the S3 bucket
+      - name: Upload Allure history to S3
+        if: ${{ inputs.GENERATE_ALLURE_REPORT == 'true' }}
+        shell: pwsh
+        run: |
+          aws s3 cp ./allure-report/history s3://${{ env.BUCKET_NAME }}/${{ env.ENVIRONMENT }}/${{ env.WORKFLOW_NAME }}/allure-report/history --recursive
+  
+      # This is not required to generate the dynamic link to the report but might be useful for other purposes
+      # Can add to email or slack notifications
+      - name: Generate Dynamic Link
+        if: ${{ inputs.GENERATE_ALLURE_REPORT == 'true' }}
+        id: generate_link
+        shell: pwsh
+        run: |
+          $LATEST_LINK = "http://${{ env.BUCKET_NAME }}.s3.amazonaws.com/${{ env.ENVIRONMENT }}/${{ env.WORKFLOW_NAME }}/allure-report/${{ env.CURRENT_VERSION }}/index.html"
+          Write-Host "Latest Allure Report: $LATEST_LINK"
+          echo "LATEST_LINK=$LATEST_LINK" >> $env:GITHUB_OUTPUT
