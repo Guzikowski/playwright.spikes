@@ -1,12 +1,14 @@
 # Playwright Spikes
 
-> This project is to spike and investigate features of Playwright. Currenlty attempting the following:
+> This project is to spike and investigate features of Playwright. Currently attempting the following:
 
 - POM
 - API requests
 - Configuration options
-- Allure Report
-- Lighthouse
+- Allure Report - S3 and GH Page storage
+- Lighthouse - Skipped not working after an update
+- Visual Regression
+- Sharding in GitHub
 
 ## Built With
 
@@ -18,19 +20,14 @@
 
 Additionally, we are using the following:
 
-- [ESLint](https://eslint.org/)
-- [Falso](https://ngneat.github.io/falso/)
-- [xml2js](https://www.npmjs.com/package/xml2js)
-- [dotenv](https://www.npmjs.com/package/dotenv)
-- [Prettier](https://prettier.io/)
+- [dotenv](https://www.npmjs.com/package/dotenv) for environment management
+- [Biome](https://biomejs.dev) for statically analyzes code for issues and for automatically formatting code
+- [Falso](https://ngneat.github.io/falso/) for providing fake data
+- [xml2js](https://www.npmjs.com/package/xml2js) for XML to JavaScript object converter
 
 ## Getting Started
 
 - Clone the repo using SSH
-
-```sh
-git@github.com:PartsTrader/ptus.e2e.regression.git
-```
 
 - Navigate to folder and install npm packages using:
 
@@ -52,9 +49,7 @@ npx playwright install
 
 - [Playwright Test for VSCode](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright)
 - [Playwright Trace Viewer for VSCode](https://marketplace.visualstudio.com/items?itemName=ryanrosello-og.playwright-vscode-trace-viewer)
-- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-- [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-- [Prettir ESLint](https://marketplace.visualstudio.com/items?itemName=rvest.vs-code-prettier-eslint)
+- [Biome](https://marketplace.visualstudio.com/items?itemName=biomejs.biome) for statically analyzes code for issues and for automatically formatting code
 
 > Optional
 
@@ -65,7 +60,7 @@ npx playwright install
 
 ### Setup
 
-- Ensure all prerequisties are installed as outlined above.
+- Ensure all prerequisites are installed as outlined above.
 
 You will need to create a .env file at the root folder which will configure your local settings, this will _NOT_ be in source control. See [.env File Creation](docs/wiki/README.md)
 
@@ -108,7 +103,7 @@ npm run test --project=functional
 E2e Test Only with Chromium
 
 ```sh
-npm run test --project=e2e
+npm run test --project=chromium
 ```
 
 ## See also
